@@ -22,7 +22,7 @@ figure(1);imshow(I1);title('数字全息图');
 % ---------------------------------------------- 初始化变量
 f0 = double(I1);
 [N1,N2] = size(f0);
-N = min(N1,N2);
+N = max(N1,N2);
 
 h = input('波长：？(mm)');   % 波长(mm)
 pix = input('CCD像素宽度：?(mm)');  % CCD像素宽度
@@ -30,17 +30,17 @@ pix = input('CCD像素宽度：?(mm)');  % CCD像素宽度
 z0 = input('重建距离z0=?(mm)');
 L = pix*N;          % CCD的物理宽度
 Ih= zeros(N,N);
-% 这里就相当于是经过了一次窗口函数
-Ih(1:N,1:N) = f0(1:N,1:N); % 感觉这里有错误！！！
+% 这里就相当于是经过了一次窗口函数,窗口的大小是NxN，就是按照衍射光中的短的那一条边，进行截断
+Ih(1:N,1:N) = f0(1:N,1:N);  % 会不会是因为这里？但是读进来的全息图应该就是NxN的吧
 % --------------------------------------------- 1-FFT重建开始
-n = 1:N;
-x = -L/2+L/N*(n-1);
+n = 1:N;        % 取样序列
+x = -L/2+L/N*(n-1); % 取样点
 y = x;
-[fx,fy] = meshgrid(x,y);
-k = 2*pi/h;
-Fresnel = exp(1j*k/2/z0*(fx.^2+fy.^2));
+[fx,fy] = meshgrid(x,y);    % 网格化数据
+k = 2*pi/h;     % 波数
+Fresnel = exp(1j*k/2/z0*(fx.^2+fy.^2)); % 传递函数
 f2 = Ih.*Fresnel;
-Uf = fft2(f2,N,N);
+Uf = fft2(f2,N,N);      % 
 Uf = fftshift(Uf);
 L0 = h*z0*N/L;
 x = -L0/2+L0/N*(n-1);
