@@ -63,4 +63,4 @@ while p
     xlabel(figstr);
     title('1-FFT物平面重建图像');
     p = input('Gmax/p,p=10?');
-end;
+end

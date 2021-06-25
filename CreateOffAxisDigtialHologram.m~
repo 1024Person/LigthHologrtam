@@ -33,10 +33,10 @@ X(N/2-M1/2+1:N/2+M1/2,N/2-N1/2+1:N/2+N1/2) = X1(1:M1,1:N1);
 r2 = round(r/2);
 r3 = r - r2;
 
-up = zeros(r2,c);
-down = ones(r3,c);
-pahse_up = exp(1j*up*2*pi);
-pahse_down = exp(1j*down*2*pi);
+up = zeros(r2,N1);
+down = ones(r3,N1);
+pahse_up = exp(1j*up);
+pahse_down = exp(1j*down);
 pahse = [pahse_up;pahse_down];
 X = X.*pahse;
 
