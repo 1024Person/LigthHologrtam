@@ -22,7 +22,7 @@ figure(1);imshow(I1);title('数字全息图');
 % ---------------------------------------------- 初始化变量
 f0 = double(I1);
 [N1,N2] = size(f0);
-N = max(N1,N2);
+N = min(N1,N2);
 
 h = input('波长：？(mm)');   % 波长(mm)
 pix = input('CCD像素宽度：?(mm)');  % CCD像素宽度

@@ -29,16 +29,6 @@ X1 = imresize(X0, N/4/N1);  % X1是初始物光场尺寸的的放大，
 X = zeros(N,N);             % 定义一个大的图片
 % 将缩放之后的图片放大打的图片中间去
 X(N/2-M1/2+1:N/2+M1/2,N/2-N1/2+1:N/2+N1/2) = X1(1:M1,1:N1);
-[r,c] = size(X);
-r2 = round(r/2);
-r3 = r - r2;
-
-up = zeros(r2,c);
-down = ones(r3,c);
-pahse_up = exp(1j*up*2*pi);
-pahse_down = exp(1j*down*2*pi);
-pahse = [pahse_up;pahse_down];
-X = X.*pahse;
 
 % --------------------------------------------------------------------------- 定义初始化变量
 h =input('波长');   % 波长
@@ -82,7 +72,7 @@ xlabel(figstr);title('到达CCD平面的物光振幅分布');
 % 根据下面的公式来看的话，这个Qx,Qy应该就是x，y方向的方向/余弦了 
 % Qx = input('方向与县');       % 按照优化设计定义参考光方向余弦
 % Qx = input('x方向余弦：？')     % 通过测试发现这里的方向余弦选的越小，未来成像的三部分成像分开的距离越大
-Qx = (4-2.5)*L0/8/z0;
+Qx = 1.5*L0/8/z0;
 Qy = Qx;
 % disp('方向余弦：')
 % disp(strcat(num2str(Qx),num2str(Qy),'1'));
